@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+    <extension point="org.eclipse.ui.editors">
+      <editor name="GWF Editor"
+              extensions="gwf"
+              icon="icons/shapes.gif"
+              default="true"
+              class="net.ostis.scpdev.scg.GwfEditor"
+              contributorClass="net.ostis.scpdev.scg.GwfEditorActionBarContributor"
+              id="GWF Editor">
+      </editor>
+   </extension>
+</plugin>

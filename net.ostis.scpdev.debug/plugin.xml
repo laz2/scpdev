@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+    <!--                             -->
+    <!-- net.ostis.scpdev.debug.core -->
+    <!--                             -->
+
+    <extension
+        point="org.eclipse.debug.core.launchConfigurationTypes">
+
+        <launchConfigurationType
+            delegate="net.ostis.scpdev.debug.core.launching.StartPMLaunchDelegate"
+            id="net.ostis.scpdev.debug.core.launchConfigurationType.startpm"
+            modes="run, debug"
+            name="Processor Module in console"
+            sourceLocatorId="net.ostis.scpdev.debug.core.sourceLookupDirector"
+            sourcePathComputerId="net.ostis.scpdev.debug.core.sourcePathComputer" />
+
+        <launchConfigurationType
+            delegate="net.ostis.scpdev.debug.core.launching.UILaunchDelegate"
+            id="net.ostis.scpdev.debug.core.launchConfigurationType.ui"
+            modes="run"
+            name="Processor Module with UI"
+            sourceLocatorId="net.ostis.scpdev.debug.core.sourceLookupDirector"
+            sourcePathComputerId="net.ostis.scpdev.debug.core.sourcePathComputer" />
+
+    </extension>
+
+    <extension
+        point="org.eclipse.debug.core.sourceLocators">
+
+        <sourceLocator
+            name="PDA Source Lookup Director"
+            class="net.ostis.scpdev.debug.core.launching.PMSourceLookupDirector"
+            id="net.ostis.scpdev.debug.core.sourceLookupDirector" />
+
+    </extension>
+
+    <extension
+        point="org.eclipse.debug.core.sourcePathComputers">
+
+        <sourcePathComputer
+            class="net.ostis.scpdev.debug.core.launching.PMSourcePathComputerDelegate"
+            id="net.ostis.scpdev.debug.core.sourcePathComputer" />
+
+    </extension>
+
+    <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="net.ostis.scpdev.debug.core.lineBreakpoint.marker"
+            class="net.ostis.scpdev.debug.core.model.SCPLineBreakpoint"
+            id="net.ostis.scpdev.debug.core.lineBreakpoint">
+      </breakpoint>
+   </extension>
+
+   <extension
+         id="net.ostis.scpdev.debug.core.lineBreakpoint.marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.debug.core.lineBreakpointMarker">
+      </super>
+      <persistent value="true" />
+   </extension>
+
+
+    <!--                           -->
+    <!-- net.ostis.scpdev.debug.ui -->
+    <!--                           -->
+
+    <extension
+        point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+
+        <launchConfigurationTabGroup
+            class="net.ostis.scpdev.debug.ui.launching.StartPMTabGroup"
+            id="net.ostis.scpdev.debug.ui.launchConfigurationTabGroup.startpm"
+            type="net.ostis.scpdev.debug.core.launchConfigurationType.startpm">
+        </launchConfigurationTabGroup>
+
+        <launchConfigurationTabGroup
+            class="net.ostis.scpdev.debug.ui.launching.UITabGroup"
+            id="net.ostis.scpdev.debug.ui.launchConfigurationTabGroup.ui"
+            type="net.ostis.scpdev.debug.core.launchConfigurationType.ui">
+        </launchConfigurationTabGroup>
+
+    </extension>
+
+    <extension
+        point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+
+        <launchConfigurationTypeImage
+            configTypeID="net.ostis.scpdev.debug.core.launchConfigurationType.startpm"
+            icon="icons/scp_perspective.gif"
+            id="net.ostis.scpdev.debug.ui.launchConfigurationTypeImage.startpm">
+        </launchConfigurationTypeImage>
+
+        <launchConfigurationTypeImage
+            configTypeID="net.ostis.scpdev.debug.core.launchConfigurationType.ui"
+            icon="icons/scp_perspective.gif"
+            id="net.ostis.scpdev.debug.ui.launchConfigurationTypeImage.ui">
+        </launchConfigurationTypeImage>
+
+    </extension>
+
+    <extension point="org.eclipse.debug.ui.consoleLineTrackers">
+
+        <consoleLineTracker
+            class="net.ostis.scpdev.debug.ui.model.PMConsoleLineTracker"
+            id="net.ostis.scpdev.debug.ui.consoleLineTracker.startpm"
+            processType="start-pm" />
+
+    </extension>
+
+    <extension
+        point="org.eclipse.core.runtime.adapters">
+
+        <factory
+            class="net.ostis.scpdev.debug.ui.model.SCPBreakpointAdapterFactory"
+            adaptableType="net.ostis.scpdev.m4scp.editors.M4ScpSourceEditor">
+            <adapter
+                type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+            </adapter>
+        </factory>
+
+    </extension>
+
+    <extension point="org.eclipse.ui.editorActions">
+
+        <editorContribution
+            targetID="net.ostis.scpdev.editors.m4scp_editor"
+            id="#TextRulerContext">
+
+            <action
+                label="Not Used"
+                class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+                actionID="RulerDoubleClick"
+                id="net.ostis.scpdev.debug.ui.actions.RulerToggleBreakpointActionDelegate"/>
+
+        </editorContribution>
+
+    </extension>
+
+    <extension point="org.eclipse.ui.popupMenus">
+
+        <viewerContribution
+            targetID="#TextRulerContext"
+            id="net.ostis.scpdev.debug.ui.RulerPopupActions">
+
+            <action
+                label="Toggle Breakpoint"
+                class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+                menubarPath="additions"
+                id="example.rulerContextMenu.toggleBreakpointAction">
+            </action>
+
+        </viewerContribution>
+
+    </extension>
+
+    <extension point="org.eclipse.ui.views">
+
+            <view
+                name="SC Memory View"
+                class="net.ostis.scpdev.debug.ui.views.SCMemoryView"
+                id="net.ostis.scpdev.debug.ui.views.SCMemoryView" />
+
+    </extension>
+
+
+    <extension point="org.eclipse.ui.perspectiveExtensions">
+
+        <perspectiveExtension targetID="org.eclipse.debug.ui.DebugPerspective">
+
+            <view
+                relative="org.eclipse.debug.ui.VariableView"
+                visible="false"
+                relationship="stack"
+                id="net.ostis.scpdev.debug.ui.views.SCMemoryView" />
+
+            <viewShortcut id="net.ostis.scpdev.debug.ui.views.SCMemoryView" />
+
+        </perspectiveExtension>
+
+    </extension>
+
+    <extension
+        point="org.eclipse.debug.ui.debugModelPresentations">
+
+        <debugModelPresentation
+            class="net.ostis.scpdev.debug.ui.model.PMDebugModelPresentation"
+            id="net.ostis.scpdev.debug" />
+
+    </extension>
+
+    <extension
+        point="org.eclipse.ui.contexts">
+
+        <context
+            name="Debugging SCP"
+            description="Debugging SCP"
+            id="net.ostis.scpdev.debug.ui.scp.debugging"
+            parentId="org.eclipse.debug.ui.debugging" />
+
+    </extension>
+
+    <extension
+        point="org.eclipse.debug.ui.debugModelContextBindings">
+
+        <modelContextBinding
+            debugModelId="net.ostis.scpdev.debug"
+            contextId="net.ostis.scpdev.debug.ui.scp.debugging" />
+
+    </extension>
+
+    <extension
+        point="org.eclipse.debug.ui.contextViewBindings">
+
+        <contextViewBinding
+            viewId="net.ostis.scpdev.debug.ui.views.SCMemoryView"
+            contextId="net.ostis.scpdev.debug.ui.scp.debugging"
+            autoClose="true"
+            autoOpen="true" />
+
+    </extension>
+
+
+</plugin>

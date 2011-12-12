@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Plugin.name
+Bundle-SymbolicName: net.ostis.scpdev.scg;singleton:=true
+Bundle-Version: 3.5.0.qualifier
+Bundle-Activator: net.ostis.scpdev.scg.SCgPlugin
+Bundle-Vendor: OSTIS
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.gef,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui.views,
+ org.eclipse.ui.workbench,
+ org.eclipse.ui.ide,
+ org.eclipse.jface,
+ net.ostis.scpdev,
+ org.eclipse.zest.core,
+ org.eclipse.zest.layouts
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+

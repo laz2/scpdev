@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="SCP Development"
+            id="net.ostis.scpdev">
+      </category>
+      <wizard
+            category="net.ostis.scpdev"
+            class="net.ostis.scpdev.wizards.RepositoryProjectNewWizard"
+            icon="icons/new_sc_project_wiz.gif"
+            id="net.ostis.scpdev.wizards.new_sc_project"
+            name="SC Repository"
+            project="true" />
+      <wizard
+            category="net.ostis.scpdev"
+            class="net.ostis.scpdev.wizards.SCsFileNewWizard"
+            icon="icons/scs_source.gif"
+            id="net.ostis.scpdev.wizards.new_scs_file"
+            name="SCs Source File" />
+      <wizard
+            category="net.ostis.scpdev"
+            class="net.ostis.scpdev.wizards.SCsyFileNewWizard"
+            icon="icons/scsy_source.gif"
+            id="net.ostis.scpdev.wizards.new_scsy_file"
+            name="SCsy Source File" />
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.ostis.scpdev.editors.scs.SCsSourceEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            extensions="scs"
+            icon="icons/scs_source.gif"
+            id="net.ostis.scpdev.editors.scs_editor"
+            name="SCs Editor">
+      </editor>
+      <editor
+            class="net.ostis.scpdev.editors.scs.SCsSourceEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            extensions="scsy"
+            icon="icons/scsy_source.gif"
+            id="net.ostis.scpdev.editors.scsy_editor"
+            name="SCsy Editor">
+      </editor>
+      <editor
+            class="net.ostis.scpdev.editors.scs.SCsSourceEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            extensions="scg"
+            icon="icons/scg_source.gif"
+            id="net.ostis.scpdev.editors.scg_editor"
+            name="SCg Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="net.ostis.scpdev.preferences.RootPreferencePage"
+            name="SCP"
+            id="net.ostis.scpdev.preferences.root_page" />
+      <page
+            class="net.ostis.scpdev.preferences.ScpEnviromentPreferencePage"
+            id="net.ostis.scpdev.preferences.scp_env_page"
+            name="SCP Enviroment"
+            category="net.ostis.scpdev.preferences.root_page" />
+      <page
+            class="net.ostis.scpdev.preferences.EditorsPreferencePage"
+            name="Editors"
+            id="net.ostis.scpdev.preferences.editors_page"
+            category="net.ostis.scpdev.preferences.root_page" />
+      <page
+            class="net.ostis.scpdev.preferences.scs.SCsEditorPreferencePage"
+            id="net.ostis.scpdev.preferences.scs_editor_page"
+            name="SCs Editor"
+            category="net.ostis.scpdev.preferences.editors_page" />
+      <page
+            class="net.ostis.scpdev.preferences.scs.SCsTemplatePreferencePage"
+            id="net.ostis.scpdev.preferences.scs_template_page"
+            name="Templates"
+            category="net.ostis.scpdev.preferences.scs_editor_page" />
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors.templates">
+      <contextType
+            class="net.ostis.scpdev.editors.templates.SCsContextType"
+            id="net.ostis.scpdev.editors.templates.scs_source_code"
+            name="SCs Source Code">
+      </contextType>
+      <contextType
+            class="net.ostis.scpdev.editors.templates.SCsContextType"
+            id="net.ostis.scpdev.editors.templates.scs_file"
+            name="SCs New File">
+      </contextType>
+   </extension>
+
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="net.ostis.scpdev.preferences.scs.SCsPreferenceInitializer">
+      </initializer>
+      <initializer
+            class="net.ostis.scpdev.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         id="net.ostis.scpdev.sc_rbuilder"
+         name="SC Repository Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="net.ostis.scpdev.builder.ScRepositoryBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="net.ostis.scpdev.sc_nature"
+         name="SC Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="net.ostis.scpdev.core.ScNature">
+         </run>
+      </runtime>
+      <builder
+            id="net.ostis.scpdev.sc_rbuilder">
+      </builder>
+   </extension>
+
+   <!-- Build problems -->
+   <extension id="net.ostis.scpdev.build_problem" name="SC Build Problem" point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.problemmarker" />
+      <persistent value="true" />
+   </extension>
+
+   <extension id="net.ostis.scpdev.scs_build_problem" name="SCs Problem" point="org.eclipse.core.resources.markers">
+      <super type="net.ostis.scpdev.build_problem" />
+   </extension>
+
+   <extension id="net.ostis.scpdev.m4scp_build_problem" name="M4SCP Problem" point="org.eclipse.core.resources.markers">
+      <super type="net.ostis.scpdev.build_problem" />
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="net.ostis.scpdev.perspectives.ScpdevPerspective"
+            icon="icons/scp_perspective.gif"
+            id="net.ostis.scpdev.perspectives.scpdev"
+            name="SCP">
+      </perspective>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="icons/sc_project.gif"
+            id="net.ostis.scpdev.scpProjectImage"
+            natureId="net.ostis.scpdev.sc_nature">
+      </image>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors.templates">
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.scs_file"
+            description="Empty SCs source file"
+            id="net.ostis.scpdev.editors.templates.scs.empty_scs"
+            name="&lt;Empty&gt;">
+         <pattern>
+${cursor}
+</pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.scs_file"
+            description="SCs file with initial includes"
+            id="net.ostis.scpdev.editors.templates.scs.simple_scs"
+            name="Simple SCs source file">
+         <pattern>
+#include "ordinal.scsy"
+
+${cursor}
+         </pattern>
+      </template>
+
+    </extension>
+
+   <extension
+         point="org.eclipse.ui.editors.templates">
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.scs_source_code"
+            description="SCs constant binary pair template"
+            id="net.ostis.scpdev.editors.templates.scs.const_bin_pair"
+            name="const_bin_pair">
+         <pattern>
+{ 1_: ${first}, 2_: ${second} }${cursor}
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.scs_source_code"
+            description="SCs variable binary pair template"
+            id="net.ostis.scpdev.editors.templates.scs.var_bin_pair"
+            name="var_bin_pair">
+         <pattern>
+{. 1_: ${first}, 2_: ${second} .}${cursor}
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.scs_source_code"
+            description="SCs metavariable binary pair template"
+            id="net.ostis.scpdev.editors.templates.scs.meta_bin_pair"
+            name="meta_bin_pair">
+         <pattern>
+{.. 1_: ${first}, 2_: ${second} ..}${cursor}
+         </pattern>
+      </template>
+
+    </extension>
+
+</plugin>

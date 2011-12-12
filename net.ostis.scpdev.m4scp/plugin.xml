@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="net.ostis.scpdev"
+            class="net.ostis.scpdev.m4scp.wizards.M4ScpFileNewWizard"
+            icon="icons/m4scp_source.gif"
+            id="net.ostis.scpdev.wizards.new_m4scp_file"
+            name="M4SCP Source File">
+      </wizard>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.ostis.scpdev.m4scp.editors.M4ScpMultiPageEditor"
+            contributorClass="net.ostis.scpdev.m4scp.editors.M4ScpEditorContributor"
+            extensions="m4scp"
+            icon="icons/m4scp_source.gif"
+            id="net.ostis.scpdev.editors.m4scp_editor"
+            name="M4SCP Editor">
+      </editor>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="net.ostis.scpdev.m4scp.preferences.M4ScpEditorPreferencePage"
+            id="net.ostis.scpdev.preferences.m4scp_editor_page"
+            name="M4SCP Editor"
+            category="net.ostis.scpdev.preferences.editors_page">
+      </page>
+      <page
+            class="net.ostis.scpdev.m4scp.editors.templates.M4ScpTemplatePreferencePage"
+            id="net.ostis.scpdev.preferences.m4scp_template_page"
+            name="Templates"
+            category="net.ostis.scpdev.preferences.m4scp_editor_page">
+      </page>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors.templates">
+      <contextType
+            class="net.ostis.scpdev.m4scp.editors.templates.M4ScpContextType"
+            id="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            name="M4Scp Source Code">
+      </contextType>
+      <contextType
+            class="net.ostis.scpdev.m4scp.editors.templates.M4ScpContextType"
+            id="net.ostis.scpdev.editors.templates.m4scp_file"
+            name="M4Scp New File">
+      </contextType>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors.templates">
+
+     <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_file"
+            description="Empty M4SCP source file"
+            id="net.ostis.scpdev.editors.templates.m4scp.empty_m4scp"
+            name="&lt;Empty&gt;">
+         <pattern>${cursor}</pattern>
+      </template>
+
+     <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_file"
+            description="M4SCP source file with program"
+            id="net.ostis.scpdev.editors.templates.m4scp.one_program_m4scp"
+            name="M4SCP Program">
+         <pattern>
+#include "scp_keynodes.scsy"
+
+program(${program_name},
+[[
+]],
+[{
+}])
+
+${cursor}
+
+return()
+
+end
+         </pattern>
+      </template>
+
+     <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_file"
+            description="M4SCP source file with procedure"
+            id="net.ostis.scpdev.editors.templates.m4scp.one_procedure_m4scp"
+            name="M4SCP Procedure">
+         <pattern>
+#include "scp_keynodes.scsy"
+
+procedure(${procedure_name},
+[[
+]],
+[{
+}],
+{[
+]})
+
+${cursor}
+
+return()
+
+end
+         </pattern>
+      </template>
+
+     <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_file"
+            description="M4SCP testsuite source file"
+            id="net.ostis.scpdev.editors.templates.m4scp.testsuite"
+            name="M4SCP Testsuite">
+         <pattern>
+#include "scp_keynodes.scsy"
+#include "lib_keynodes.scsy"
+
+program(${testcase_name},
+[[
+    ${cursor}
+]],
+[{ descr }])
+
+${cursor}
+
+print([1_: fixed_: test_success])
+return()
+
+label(${testcase_name}_failure)
+print([1_: fixed_: test_failure])
+return()
+
+end
+         </pattern>
+      </template>
+
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors.templates">
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp program snippet"
+            id="net.ostis.scpdev.editors.templates.m4scp.program"
+            name="program">
+         <pattern>
+program(${program_name},
+[[
+]],
+[{
+}])
+
+${cursor}
+
+return()
+
+end
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp testcase snippet"
+            id="net.ostis.scpdev.editors.templates.m4scp.testcase"
+            name="testcase">
+         <pattern>
+program(${testcase_name},
+[[
+    ${cursor}
+]],
+[{ descr }])
+
+${cursor}
+
+print([1_: fixed_: test_success])
+return()
+
+label(${testcase_name}_failure)
+print([1_: fixed_: test_failure])
+return()
+
+end
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp procedure snippet"
+            id="net.ostis.scpdev.editors.templates.m4scp.procedure"
+            name="procedure">
+         <pattern>
+procedure(${procedure_name},
+[[
+]],
+[{
+}],
+{[
+]})
+
+${cursor}
+
+return()
+
+end
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp input program parameter"
+            id="net.ostis.scpdev.editors.templates.m4scp.in_param"
+            name="inparam">
+         <pattern>
+${number}_:  in_: ${param}
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp output program parameter"
+            id="net.ostis.scpdev.editors.templates.m4scp.out_param"
+            name="outparam">
+         <pattern>
+${number}_: out_: ${param}
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp input/output program parameter"
+            id="net.ostis.scpdev.editors.templates.m4scp.in_out_param"
+            name="inoutparam">
+         <pattern>
+${number}_: in_: out_: ${param}
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="arc_: const_: pos_: "
+            id="net.ostis.scpdev.editors.templates.m4scp.arc_const_pos"
+            name="arc_conts_pos">
+         <pattern>
+arc_: const_: pos_: ${cursor}
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp iterating over set"
+            id="net.ostis.scpdev.editors.templates.m4scp.iterate"
+            name="iterate">
+         <pattern>
+label([${next_label}])
+    searchElStr3([
+        1_:  fixed_: ${set},
+        2_: assign_: arc2,
+        3_: assign_: ${cur_elt}
+    ],, ${break_label})
+
+    eraseEl([1_: fixed_: f_: arc2])
+
+    ${cursor}
+
+    nop(${next_label})
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp genEl"
+            id="net.ostis.scpdev.editors.templates.m4scp.gen"
+            name="gen">
+         <pattern>
+genEl([1_: assign_: ${el}])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp genElStr3 faf"
+            id="net.ostis.scpdev.editors.templates.m4scp.gen3_faf"
+            name="gen3_faf">
+         <pattern>
+genElStr3([
+    1_:  fixed_: ${first},
+    2_: assign_: arc_: pos_: const_: ${arc2},
+    3_:  fixed_: ${third}
+])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp genElStr3 faa"
+            id="net.ostis.scpdev.editors.templates.m4scp.gen3_faa"
+            name="gen3_faa">
+         <pattern>
+genElStr3([
+    1_:  fixed_: ${first},
+    2_: assign_: arc_: pos_: const_: ${arc2},
+    3_: assign_: node_: const_: ${third}
+])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp genElStr3 aaf"
+            id="net.ostis.scpdev.editors.templates.m4scp.gen3_aaf"
+            name="gen3_aaf">
+         <pattern>
+genElStr3([
+    1_: assign_: node_: const_: ${first},
+    2_: assign_: arc_: pos_: const_: ${arc2},
+    3_:  fixed_: ${third}
+])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp genElStr3 aaa"
+            id="net.ostis.scpdev.editors.templates.m4scp.gen3_aaa"
+            name="gen3_aaa">
+         <pattern>
+genElStr3([
+    1_: assign_: node_: const_: ${first},
+    2_: assign_: arc_: pos_: const_: ${arc2},
+    3_: assign_: node_: const_: ${third}
+])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp genElStr5 fafaf"
+            id="net.ostis.scpdev.editors.templates.m4scp.gen5_fafaf"
+            name="gen5_fafaf">
+         <pattern>
+genElStr5([
+    1_:  fixed_: ${first},
+    2_: assign_: arc_: pos_: const_: ${arc2},
+    3_:  fixed_: ${third},
+    4_: assign_: arc_: pos_: const_: ${arc4},
+    5_:  fixed_: ${fifth}
+])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp genElStr5 faaaf"
+            id="net.ostis.scpdev.editors.templates.m4scp.gen5_faaaf"
+            name="gen5_faaaf">
+         <pattern>
+genElStr5([
+    1_:  fixed_: ${first},
+    2_: assign_: arc_: pos_: const_: ${arc2},
+    3_: assign_: node_: const_: ${third},
+    4_: assign_: arc_: pos_: const_: ${arc4},
+    5_:  fixed_: ${fifth}
+])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp varAssign"
+            id="net.ostis.scpdev.editors.templates.m4scp.varassign"
+            name="var_assign">
+         <pattern>
+varAssign([1_: ${var}, 2_: fixed_: ${val}])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp varErase"
+            id="net.ostis.scpdev.editors.templates.m4scp.varerase"
+            name="var_erase">
+         <pattern>
+varErase([1_: ${var}])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp varErase"
+            id="net.ostis.scpdev.editors.templates.m4scp.varerase"
+            name="var_erase">
+         <pattern>
+varErase([1_: ${var}])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp callReturn without arguments"
+            id="net.ostis.scpdev.editors.templates.m4scp.callret_0"
+            name="callret_0">
+         <pattern>
+callReturn([
+    1_: ${program},
+    2_: {[ ]}
+], descr)
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp callReturn with one argument"
+            id="net.ostis.scpdev.editors.templates.m4scp.callret_1"
+            name="callret_1">
+         <pattern>
+callReturn([
+    1_: ${program},
+    2_: {[
+        1_: ${arg1}
+    ]}
+], descr)
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp callReturn with two arguments"
+            id="net.ostis.scpdev.editors.templates.m4scp.callret_2"
+            name="callret_2">
+         <pattern>
+callReturn([
+    1_: ${program},
+    2_: {[
+        1_: ${arg1},
+        2_: ${arg2}
+    ]}
+], descr)
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp callReturn with three arguments"
+            id="net.ostis.scpdev.editors.templates.m4scp.callret_3"
+            name="callret_3">
+         <pattern>
+callReturn([
+    1_: ${program},
+    2_: {[
+        1_: ${arg1},
+        2_: ${arg2},
+        3_: ${arg3}
+    ]}
+], descr)
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp callReturn with three arguments"
+            id="net.ostis.scpdev.editors.templates.m4scp.callret_4"
+            name="callret_4">
+         <pattern>
+callReturn([
+    1_: ${program},
+    2_: {[
+        1_: ${arg1},
+        2_: ${arg2},
+        3_: ${arg3},
+        4_: ${arg4}
+    ]}
+], descr)
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp searchElStr5 fafaf"
+            id="net.ostis.scpdev.editors.templates.m4scp.search5_fafaf"
+            name="search5_fafaf">
+         <pattern>
+searchElStr5([
+    1_:  fixed_: ${elt1},
+    2_: assign_: arc_: pos_: const_: ${arc2},
+    3_: fixed_: ${elt3},
+    4_: assign_: arc_: pos_: const_: ${arc4},
+    5_:  fixed_: ${elt5}
+])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp searchElStr5 faaaf"
+            id="net.ostis.scpdev.editors.templates.m4scp.search5_faaaf"
+            name="search5_faaaf">
+         <pattern>
+searchElStr5([
+    1_:  fixed_: ${elt1},
+    2_: assign_: arc_: pos_: const_: ${arc2},
+    3_: assign_: node_: const_: ${elt3},
+    4_: assign_: arc_: pos_: const_: ${arc4},
+    5_:  fixed_: ${elt5}
+])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp eraseEl"
+            id="net.ostis.scpdev.editors.templates.m4scp.erase"
+            name="erase">
+         <pattern>
+eraseEl([1_: f_: ${for_erase}])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp printNl"
+            id="net.ostis.scpdev.editors.templates.m4scp.printnl"
+            name="printnl">
+         <pattern>
+printNl([1_: fixed_: ${el}])
+         </pattern>
+      </template>
+
+      <template
+            autoinsert="false"
+            contextTypeId="net.ostis.scpdev.editors.templates.m4scp_source_code"
+            description="M4Scp printEl"
+            id="net.ostis.scpdev.editors.templates.m4scp.printel"
+            name="printel">
+         <pattern>
+printEl([1_: fixed_: ${el}])
+         </pattern>
+      </template>
+
+   </extension>
+
+
+
+</plugin>
